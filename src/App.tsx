@@ -5,8 +5,8 @@ import {Counter} from "./Components/Counter";
 
 function App() {
 
-    const startCounter = 0
-    const maxCounter = 5
+    const startCounter: number = 0
+    const maxCounter: number = 5
 
     let [counter, setCounter] = useState<number>(startCounter)
 
@@ -20,21 +20,21 @@ function App() {
         setCounter(startCounter)
     }
 
-    const ButtonIncClass = (counter === maxCounter) ? 'buttonDisabled' : 'button'
-    const ButtonResetClass = (counter === startCounter) ? 'buttonDisabled' : 'button'
-
+    const buttonIncDisabled: boolean = counter === maxCounter
 
     return (
         <div className="App">
-            <Counter counter={counter} maxCounter={maxCounter}/>
+            <Counter
+                counter={counter}
+                maxCounter={maxCounter}
+            />
             <div className={'buttonWrapper'}>
                 <SuperButton
-                    className={ButtonIncClass}
+                    disabled={buttonIncDisabled}
                     name={'inc'}
                     callBack={increaseCounter}
                 />
                 <SuperButton
-                    className={ButtonResetClass}
                     name={'reset'}
                     callBack={resetCounter}
                 />
