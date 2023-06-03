@@ -2,13 +2,13 @@ import React from "react";
 
 type CounterPropsType = {
     counter: number
-    maxCounter: number
+    maxValue: number
 }
 
 
 export const Counter = (props: CounterPropsType) => {
 
-    const counterClass = (props.counter === props.maxCounter) ? 'maxCounter' : 'counter'
+    const counterClass = (props.counter === props.maxValue) ? 'maxCounter' : 'counter'
 
     return (
         <div className={counterClass}>

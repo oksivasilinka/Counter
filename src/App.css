@@ -1,17 +1,30 @@
 .App {
     text-align: center;
-    width: 280px;
-    height: 230px;
+    width: 700px;
+    height: 280px;
     margin: 50px auto;
     border: 2px solid palevioletred;
     border-radius: 10px;
     background-color: lavenderblush;
     padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.wrapper {
+    width: 280px;
+    height: 250px;
+    /*background-color: pink;*/
+    border: 2px solid palevioletred;
+    border-radius: 10px;
+    /*padding-top: 40px;*/
+    /*color: black;*/
+    /*font-size: 32px;*/
+    /*font-weight: 700;*/
 }
 
-
 .counter {
-    width: 280px;
+    width: 240px;
+    margin: 10px auto;
     height: 100px;
     background-color: pink;
     border: 2px solid palevioletred;
@@ -23,7 +36,8 @@
 }
 
 .maxCounter {
-    width: 280px;
+    width: 240px;
+    margin: 10px auto;
     height: 100px;
     background-color: pink;
     border: 2px solid red;
@@ -36,11 +50,11 @@
 
 .buttonWrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .button {
-    width: 130px;
+    width: 100px;
     height: 50px;
     background-color: pink;
     border: 2px solid palevioletred;
