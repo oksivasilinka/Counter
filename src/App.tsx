@@ -9,53 +9,68 @@ function App() {
     const [maxValue, setMaxValue] = useState<number>(0)
     const [startValue, setStartValue] = useState<number>(0)
     const [counter, setCounter] = useState<number>(startValue)
+    const [error, setError] = useState<string >('')
 
-
-    // при перезагрузке страницы выводит значение из хранилища
-    useEffect(() => {
-        let valueString = localStorage.getItem('maxValue')
-        if (valueString) {
-            let newValue = JSON.parse((valueString))
-            setCounter(newValue)
-        }
-    }, [])
 
     useEffect(() => {
         let maxValueString = localStorage.getItem('maxValue')
         if (maxValueString) {
-            let newValue = JSON.parse((maxValueString))
-            setMaxValue(newValue)
+            let newValueMax = JSON.parse((maxValueString))
+            setMaxValue(newValueMax)
         }
     }, [])
-
     useEffect(() => {
         let startValueString = localStorage.getItem('startValue')
         if (startValueString) {
-            let newValue = JSON.parse((startValueString))
-            setStartValue(newValue)
+            let newValueStart = JSON.parse((startValueString))
+            setStartValue(newValueStart)
         }
     }, [])
 
-    // положить значение в хранилище
-    useEffect(() => {
-        localStorage.setItem('maxValue', JSON.stringify(maxValue))
-    }, [maxValue])
+    const setLocalStorage = () => {
+            localStorage.setItem('maxValue', JSON.stringify(maxValue))
+            localStorage.setItem('startValue', JSON.stringify(startValue))
+            getLocalStorageStartValue()
+            getLocalStorageMaxValue()
+        // }
+    }
 
-    // положить значение в хранилище
-    useEffect(() => {
-        localStorage.setItem('startValue', JSON.stringify(startValue))
-    }, [startValue])
-
+    const getLocalStorageStartValue = () => {
+        let valueString =localStorage.getItem('startValue')
+        if (valueString) {
+            let newValue =JSON.parse((valueString))
+            setCounter(newValue)
+        }
+    }
+    const getLocalStorageMaxValue = () => {
+        let valueString =localStorage.getItem('startValue')
+        if (valueString) {
+            let newValue =JSON.parse((valueString))
+            setCounter(newValue )
+        }
+    }
 
 
     const increaseCounter = () => {
         if (counter < maxValue) {
-            setCounter(counter + 1)
+            setCounter(counter +1 )
         }
     }
 
     const resetCounter = () => {
         setCounter(startValue)
+    }
+
+    const errorCounter =()=> {
+        if (startValue > 0 && startValue <= maxValue && maxValue > 0) {
+            errorAlert('')
+        } else {
+            errorAlert('incorrect value!')
+        }
+    }
+
+    const errorAlert =(text: string)=> {
+        setError(text)
     }
 
     const buttonIncDisabled: boolean = counter === maxValue
@@ -68,25 +83,22 @@ function App() {
                         title={'max value'}
                         value={maxValue}
                         setValue={setMaxValue}
-                        maxValue={maxValue}
-                        startValue={startValue}
+                        errorCounter={errorCounter}
                     />
                     <SettingsInput
                         title={'start value'}
                         value={startValue}
                         setValue={setStartValue}
-
-                        maxValue={maxValue}
-                        startValue={startValue}/>
+                        errorCounter={errorCounter}/>
 
                 </div>
                 <div className={'buttonWrapper'}>
-                    <SuperButton name={'set'} callBack={resetCounter}/>
+                    <SuperButton name={'set'} callBack={setLocalStorage} />
                 </div>
             </div>
 
             <div className={'wrapper'}>
-                <Counter counter={counter} maxValue={maxValue}/>
+                <Counter counter={counter} maxValue={maxValue} error={error}/>
                 <div className={'buttonWrapper'}>
                     <SuperButton disabled={buttonIncDisabled} name={'inc'} callBack={increaseCounter}/>
                     <SuperButton name={'reset'} callBack={resetCounter}/>

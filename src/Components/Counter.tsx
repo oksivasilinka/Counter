@@ -3,6 +3,7 @@ import React from "react";
 type CounterPropsType = {
     counter: number
     maxValue: number
+    error: string | null
 }
 
 
@@ -12,7 +13,9 @@ export const Counter = (props: CounterPropsType) => {
 
     return (
         <div className={counterClass}>
-            <span>{props.counter}</span>
+            {props.error ? <span className={'maxCounter'}>{props.error}</span> : <span>{props.counter}</span>}
+
+             {/*{props.error && <span className={'maxCounter'}>{props.error}</span>}*/}
         </div>
     )
 }
