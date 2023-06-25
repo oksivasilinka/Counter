@@ -8,7 +8,8 @@ function App() {
 
     const [maxValue, setMaxValue] = useState<number>(0)
     const [startValue, setStartValue] = useState<number>(0)
-    const [counter, setCounter] = useState<number>(() => {
+    const [counter, setCounter] = useState<number>(
+        () => {
         let startValue = localStorage.getItem("startValue");
         if (startValue) {
             return JSON.parse(startValue);
@@ -17,7 +18,6 @@ function App() {
         }
     })
     const [error, setError] = useState<string >('')
-
 
     useEffect(() => {
         let startValueString = localStorage.getItem('startValue')
@@ -35,7 +35,6 @@ function App() {
         }
     }, [])
 
-
     const setLocalStorage = () => {
             localStorage.setItem('maxValue', JSON.stringify(maxValue))
             localStorage.setItem('startValue', JSON.stringify(startValue))
@@ -50,6 +49,7 @@ function App() {
             setCounter(newStartValue)
         }
     }
+
     const getLocalStorageMaxValue = () => {
         let valueString =localStorage.getItem('startValue')
         if (valueString) {
@@ -57,7 +57,6 @@ function App() {
             setCounter(newMaxValue )
         }
     }
-
 
     const increaseCounter = () => {
         if (counter < maxValue) {
@@ -68,7 +67,6 @@ function App() {
     const resetCounter = () => {
         setCounter(startValue)
     }
-
 
     const onchangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const valueMax = +e.currentTarget.value;

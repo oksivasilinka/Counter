@@ -6,17 +6,19 @@ type CounterPropsType = {
     error: string | null
 }
 
+export const Counter: React.FC<CounterPropsType> = ({
+                                                        counter,
+                                                        maxValue,
+                                                        error
+                                                    }) => {
 
-export const Counter = (props: CounterPropsType) => {
-
-
-    const counterClass = (props.counter === props.maxValue) ? 'maxCounter' : (props.error) ? 'error' : 'counter'
+    const counterClass = (counter === maxValue) ? 'maxCounter' : (error) ? 'error' : 'counter'
 
     return (
         <div className={counterClass}>
-            {props.error ? <span className={'maxCounter'}>{props.error}</span> : <span>{props.counter}</span>}
-
-             {/*{props.error && <span className={'maxCounter'}>{props.error}</span>}*/}
+            {error
+                ? <span className={'maxCounter'}>{error}</span>
+                : <span>{counter}</span>}
         </div>
     )
 }
