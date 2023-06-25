@@ -1,6 +1,6 @@
 .App {
     text-align: center;
-    width: 700px;
+    width: 650px;
     height: 280px;
     margin: 50px auto;
     border: 2px solid palevioletred;
@@ -26,11 +26,17 @@
     font-weight: 700;
 }
 .inputWrapper {
-    margin: 15px 0;
+    margin: 5px 0;
 }
+
 .input {
-    padding: 4px 0;
+    width: 150px;
+    padding: 10px 0;
     margin: 10px 0;
+    border: 1px solid palevioletred;
+    border-radius: 7px;
+    text-align: center;
+
 }
 
 .counter {
