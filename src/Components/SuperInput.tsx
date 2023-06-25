@@ -2,21 +2,23 @@ import React, {ChangeEvent} from "react";
 
 
 export type SuperInputPropsType = {
+    title: string
     value: number
-   setValue: ( value: number)=> void
-
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
-
-
-
 export const SuperInput = (props: SuperInputPropsType) => {
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setValue(Number(e.currentTarget.value))
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        props.onChange(e)
     }
-
-
-    return (
-        <input value={props.value} onChange={(e)=>{onChangeHandler(e)}} type={"number"}/>
+return (
+    <div>
+        <span>{props.title}</span>
+        <input className={'input'} value={props.value} onChange={onChangeInputHandler} type={"number"}/>
+    </div>
     )
+
 }
+
+
+

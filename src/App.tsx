@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
 import {SuperButton} from "./Components/SuperButton";
 import {Counter} from "./Components/Counter";
-import {SettingsInput} from "./Components/SettingsInput";
+import {SuperInput} from "./Components/SuperInput";
 
 function App() {
 
@@ -32,21 +32,20 @@ function App() {
             localStorage.setItem('startValue', JSON.stringify(startValue))
             getLocalStorageStartValue()
             getLocalStorageMaxValue()
-        // }
     }
 
     const getLocalStorageStartValue = () => {
         let valueString =localStorage.getItem('startValue')
         if (valueString) {
-            let newValue =JSON.parse((valueString))
-            setCounter(newValue)
+            let newStartValue =JSON.parse((valueString))
+            setCounter(newStartValue)
         }
     }
     const getLocalStorageMaxValue = () => {
         let valueString =localStorage.getItem('startValue')
         if (valueString) {
-            let newValue =JSON.parse((valueString))
-            setCounter(newValue )
+            let newMaxValue =JSON.parse((valueString))
+            setCounter(newMaxValue )
         }
     }
 
@@ -61,39 +60,30 @@ function App() {
         setCounter(startValue)
     }
 
-    const errorCounter =()=> {
-        if (startValue > 0 && startValue <= maxValue && maxValue > 0) {
-            errorAlert('')
-        } else {
-            errorAlert('incorrect value!')
-        }
+
+    const onchangeMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const valueMax = +e.currentTarget.value;
+        setMaxValue(Number(valueMax))
+        valueMax < 0 || valueMax < startValue ? setError('incorrect value') : setError('')
     }
 
-    const errorAlert =(text: string)=> {
-        setError(text)
+    const onchangeStartValueHandler = (e: ChangeEvent<HTMLInputElement>)=> {
+        const valueStart = +e.currentTarget.value;
+        setStartValue(Number(valueStart))
+        valueStart < 0 || valueStart > maxValue ? setError('incorrect value') : setError('')
     }
 
     const buttonIncDisabled: boolean = counter === maxValue
 
     return (
         <div className="App">
-            <div className={'wrapper'}>
-                <div>
-                    <SettingsInput
-                        title={'max value'}
-                        value={maxValue}
-                        setValue={setMaxValue}
-                        errorCounter={errorCounter}
-                    />
-                    <SettingsInput
-                        title={'start value'}
-                        value={startValue}
-                        setValue={setStartValue}
-                        errorCounter={errorCounter}/>
-
-                </div>
+            <div className={'wrapper-settings'}>
+                <div className={'inputWrapper'}>
+                    <SuperInput  title={'Max Value '} value={maxValue} onChange={onchangeMaxValueHandler}/>
+                    <SuperInput title={'Start Value '} value={startValue} onChange={onchangeStartValueHandler}/>
+                 </div>
                 <div className={'buttonWrapper'}>
-                    <SuperButton name={'set'} callBack={setLocalStorage} />
+                    <SuperButton name={'set'} callBack={setLocalStorage} disabled={!!error} />
                 </div>
             </div>
 
@@ -103,10 +93,10 @@ function App() {
                     <SuperButton disabled={buttonIncDisabled} name={'inc'} callBack={increaseCounter}/>
                     <SuperButton name={'reset'} callBack={resetCounter}/>
                 </div>
-
             </div>
         </div>
     )
 }
 
 export default App;
+

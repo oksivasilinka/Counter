@@ -9,7 +9,8 @@ type CounterPropsType = {
 
 export const Counter = (props: CounterPropsType) => {
 
-    const counterClass = (props.counter === props.maxValue) ? 'maxCounter' : 'counter'
+
+    const counterClass = (props.counter === props.maxValue) ? 'maxCounter' : (props.error) ? 'error' : 'counter'
 
     return (
         <div className={counterClass}>
