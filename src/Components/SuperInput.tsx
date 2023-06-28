@@ -9,15 +9,14 @@ export type SuperInputPropsType = {
 export const SuperInput: React.FC<SuperInputPropsType> = ({
                                                               title,
                                                               value,
-                                                              onChange
+                                                              onChange,
+                                                              ...rest
                                                           }) => {
-
-    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => { onChange(e)}
 
     return (
         <div>
             <span>{title}</span>
-            <input className={'input'} value={value} onChange={onChangeInputHandler} type={"number"}/>
+            <input className={'input'} value={value} onChange={onChange} type={"number"} {...rest}/>
         </div>
     )
 }

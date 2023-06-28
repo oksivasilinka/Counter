@@ -6,18 +6,18 @@ import {SuperInput} from "./Components/SuperInput";
 
 function App() {
 
-    const [maxValue, setMaxValue] = useState<number>(0)
+    const [maxValue, setMaxValue] = useState<number>(1)
     const [startValue, setStartValue] = useState<number>(0)
     const [counter, setCounter] = useState<number>(
         () => {
-        let startValue = localStorage.getItem("startValue");
-        if (startValue) {
-            return JSON.parse(startValue);
-        } else {
-            return 0;
-        }
-    })
-    const [error, setError] = useState<string >('')
+            let startValueLocal = localStorage.getItem("startValue");
+            if (startValueLocal) {
+                return JSON.parse(startValueLocal);
+            } else {
+                return startValue;
+            }
+        })
+    const [error, setError] = useState<string>('')
 
     useEffect(() => {
         let startValueString = localStorage.getItem('startValue')
@@ -25,9 +25,7 @@ function App() {
             let newValueStart = JSON.parse(startValueString)
             setStartValue(newValueStart)
         }
-    }, [])
 
-    useEffect(() => {
         let maxValueString = localStorage.getItem('maxValue')
         if (maxValueString) {
             let newValueMax = JSON.parse(maxValueString)
@@ -36,31 +34,14 @@ function App() {
     }, [])
 
     const setLocalStorage = () => {
-            localStorage.setItem('maxValue', JSON.stringify(maxValue))
-            localStorage.setItem('startValue', JSON.stringify(startValue))
-            getLocalStorageStartValue()
-            getLocalStorageMaxValue()
-    }
-
-    const getLocalStorageStartValue = () => {
-        let valueString =localStorage.getItem('startValue')
-        if (valueString) {
-            let newStartValue =JSON.parse((valueString))
-            setCounter(newStartValue)
-        }
-    }
-
-    const getLocalStorageMaxValue = () => {
-        let valueString =localStorage.getItem('startValue')
-        if (valueString) {
-            let newMaxValue =JSON.parse((valueString))
-            setCounter(newMaxValue )
-        }
+        localStorage.setItem('maxValue', JSON.stringify(maxValue))
+        localStorage.setItem('startValue', JSON.stringify(startValue))
+        setCounter(startValue)
     }
 
     const increaseCounter = () => {
         if (counter < maxValue) {
-            setCounter(counter +1 )
+            setCounter(counter + 1)
         }
     }
 
@@ -74,31 +55,29 @@ function App() {
         valueMax < 0 || valueMax < startValue ? setError('incorrect value') : setError('')
     }
 
-    const onchangeStartValueHandler = (e: ChangeEvent<HTMLInputElement>)=> {
+    const onchangeStartValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const valueStart = +e.currentTarget.value;
         setStartValue(Number(valueStart))
         valueStart < 0 || valueStart > maxValue ? setError('incorrect value') : setError('')
     }
 
-    const buttonIncDisabled: boolean = counter === maxValue
-
     return (
         <div className="App">
             <div className={'wrapper-settings'}>
                 <div className={'inputWrapper'}>
-                    <SuperInput  title={'Max Value '} value={maxValue} onChange={onchangeMaxValueHandler}/>
+                    <SuperInput title={'Max Value '} value={maxValue} onChange={onchangeMaxValueHandler}/>
                     <SuperInput title={'Start Value '} value={startValue} onChange={onchangeStartValueHandler}/>
-                 </div>
+                </div>
                 <div className={'buttonWrapper'}>
-                    <SuperButton name={'set'} callBack={setLocalStorage} disabled={!!error} />
+                    <SuperButton name={'set'} onclick={setLocalStorage} disabled={!!error}/>
                 </div>
             </div>
 
             <div className={'wrapper'}>
                 <Counter counter={counter} maxValue={maxValue} error={error}/>
                 <div className={'buttonWrapper'}>
-                    <SuperButton disabled={buttonIncDisabled} name={'inc'} callBack={increaseCounter}/>
-                    <SuperButton name={'reset'} callBack={resetCounter}/>
+                    <SuperButton name={'inc'} onclick={increaseCounter} disabled={counter === maxValue}/>
+                    <SuperButton name={'reset'} onclick={resetCounter} disabled={counter === startValue}/>
                 </div>
             </div>
         </div>
