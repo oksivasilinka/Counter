@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
-import {SuperButton} from "./Components/SuperButton";
-import {Counter} from "./Components/Counter";
-import {SuperInput} from "./Components/SuperInput";
+import {SuperButton} from "./Components/superButton/SuperButton";
+import {Counter} from "./Components/counter/Counter";
+import {SuperInput} from "./Components/superInput/SuperInput";
 
 function App() {
 
@@ -63,7 +63,7 @@ function App() {
 
     return (
         <div className="App">
-            <div className={'wrapper-settings'}>
+            <div className={'wrapper'}>
                 <div className={'inputWrapper'}>
                     <SuperInput title={'Max Value '} value={maxValue} onChange={onchangeMaxValueHandler}/>
                     <SuperInput title={'Start Value '} value={startValue} onChange={onchangeStartValueHandler}/>

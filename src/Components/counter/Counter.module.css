@@ -1,0 +1,17 @@
+.counter {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 32px;
+    font-weight: 700;
+    background-color: pink;
+    border: 2px solid palevioletred;
+    border-radius: 10px;
+}
+
+.maxCounter {
+    color: red;
+
+}

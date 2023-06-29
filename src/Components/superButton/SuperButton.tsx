@@ -1,4 +1,5 @@
 import React from "react";
+import style from './SuperButton.module.css'
 
 type SuperButtonPropsType = {
     name: string
@@ -13,7 +14,7 @@ export const SuperButton: React.FC<SuperButtonPropsType> = ({
                                                             }) => {
 
     return (
-        <button className={'button'} onClick={onclick} {...rest}>
+        <button className={style.button} onClick={onclick} {...rest}>
             {name}
         </button>
     )

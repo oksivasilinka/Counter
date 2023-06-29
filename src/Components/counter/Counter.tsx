@@ -1,4 +1,5 @@
 import React from "react";
+import style from './Counter.module.css'
 
 type CounterPropsType = {
     counter: number
@@ -12,12 +13,17 @@ export const Counter: React.FC<CounterPropsType> = ({
                                                         error
                                                     }) => {
 
-    const counterClass = (counter === maxValue) ? 'maxCounter' : (error) ? 'error' : 'counter'
+
+    const counterClass = `
+        ${counter === maxValue 
+            ? `${style.counter} ${style.maxCounter}` 
+                : style.counter}
+    `
 
     return (
         <div className={counterClass}>
             {error
-                ? <span className={'maxCounter'}>{error}</span>
+                ? <span className={style.maxCounter}>{error}</span>
                 : <span>{counter}</span>}
         </div>
     )
