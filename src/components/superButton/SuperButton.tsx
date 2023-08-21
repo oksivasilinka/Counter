@@ -2,20 +2,20 @@ import React from "react";
 import style from './SuperButton.module.css'
 
 type SuperButtonPropsType = {
-    name: string
+    title: string
     onclick: () => void
     disabled: boolean
 }
 
 export const SuperButton: React.FC<SuperButtonPropsType> = ({
-                                                                name,
+                                                                title,
                                                                 onclick,
                                                                 ...rest
                                                             }) => {
 
     return (
         <button className={style.button} onClick={onclick} {...rest}>
-            {name}
+            {title}
         </button>
     )
 }
